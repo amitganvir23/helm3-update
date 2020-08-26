@@ -23,6 +23,11 @@ kubectl -n glt-dev create -f deploy-service.yml
 
 ## Helm Charts apply
 
+Helm charts dry run
+```
+helm install -n glt-dev hello2 . -f image.yaml --dry-run --debug
+```
+
 ## Apply the changes
 ```
 helm install --namespace glt-dev hello2 . -f image.yaml
