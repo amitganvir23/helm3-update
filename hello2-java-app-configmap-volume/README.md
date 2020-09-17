@@ -1,6 +1,9 @@
 # helm3-update
 New Helm3 charts and new Kubernetes
 
+## Dockerfile
+user docker file from hello2-java-app directory
+
 ## Kubernetes apply
 
 To create NameSpace
