@@ -11,8 +11,8 @@ kubectl get namespaces
 
 To Apply the changes
 ```
-kubectl -n glt-dev 
+kubectl -n glt-dev create configmap hindi-configmap --from-file=./configmapfiles/hindi/
+kubectl -n glt-dev create configmap english-configmap --from-file=./configmapfiles/english/
 kubectl -n glt-dev get configmap
-kubectl -n glt-dev create -f service.yml
-kubectl -n glt-dev create -f deploy.yml
+kubectl -n glt-dev create -f deploy.yml -f service.yml
 ```
