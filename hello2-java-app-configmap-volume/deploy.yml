@@ -1,0 +1,31 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: hello2
+spec:
+  selector:
+    matchLabels:
+      app: hello2 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello2
+    spec:
+      containers:
+      - name: hello2
+        image: amitrepo/hello2java:0.0.1
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: hindi
+          mountPath: /hindi
+        - name: english
+          mountPath: /english
+      volumes:
+        - name: hindi
+          configMap:
+            name: hindi-configmap
+        - name: english
+          configMap:
+            name: english-configmap
