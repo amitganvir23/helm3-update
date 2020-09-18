@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "name" . }}
+spec:
+  selector:
+    matchLabels:
+      app: hello2
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+    spec:
+      containers:
+      - name: {{ template "name" . }}
+        image: "{{ .Values.images.JavaHelloImage }}:{{ .Values.images.JavaHelloTag }}"
+        ports:
+        - containerPort: {{ .Values.image.containerPort }}

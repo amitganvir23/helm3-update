@@ -1,0 +1,9 @@
+replicaCount: 1
+
+image:
+  containerPort: 8080
+
+service:
+  port: 8080
+  targetPort: 8080
+  nodePort: 31006
