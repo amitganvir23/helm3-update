@@ -4,21 +4,22 @@ namespace=glt-dev
 kubectl create -f ./create_namespace.yml
 kubectl get namespaces
 
-## To create hinid and english configmap
-kubectl -n glt-dev create configmap hindi-configmap --from-file=./configmapfiles/hindi/
-kubectl -n glt-dev create configmap english-configmap --from-file=./configmapfiles/english/
+## Share a directroy from NFS so that we can access it from the pods
+
+## To create PV and PVC using NFS
+kubectl -n glt-dev create -f pv.yml -f pvc.yml
 kubectl -n glt-dev get configmap
 
 ## Will Create one LoadBalancer Service and Deployment with tow pods
 ## 31001 port exposed
-kubectl -n ${namespace} create -f deploy.yml -f service.yml
+kubectl -n ${namespace} create -f deploy-nfs1.yml -f service.yml
 kubectl -n ${namespace} get pods
 
 ## Testing URL with nodeport
 #curl http://192.168.99.100:31006/
 
-## Check the content of configmap in a pod
+## Check the content of shared NFS volume in a pod
 kubectl -n glt-dev exec -it $(kubectl -n ${namespace} get pods|grep hello2|awk '{print $1}') -- bash
 #OR
-kubectl -n glt-dev exec $(kubectl -n ${namespace} get pods|grep hello2|awk '{print $1}') -- ls hindi
-kubectl -n glt-dev exec $(kubectl -n ${namespace} get pods|grep hello2|awk '{print $1}') -- ls english
+kubectl -n glt-dev exec $(kubectl -n ${namespace} get pods|grep hello2|awk '{print $1}') -- df -h
+kubectl -n glt-dev exec $(kubectl -n ${namespace} get pods|grep hello2|awk '{print $1}') -- ls /data
