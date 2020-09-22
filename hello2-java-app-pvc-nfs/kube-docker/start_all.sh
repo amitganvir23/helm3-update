@@ -4,14 +4,15 @@ namespace=glt-dev
 kubectl create -f ./create_namespace.yml
 kubectl get namespaces
 
-## To create PVC and cliam for PV.
-kubectl -n glt-dev create -f pvc.yml
-kubectl -n glt-dev get pv
-kubectl -n glt-dev get pvc
+## Share a directroy from NFS so that we can access it from the pods
+
+## To create PV and PVC using NFS
+kubectl -n glt-dev create -f pv.yml -f pvc.yml
+kubectl -n glt-dev get configmap
 
 ## Will Create one LoadBalancer Service and Deployment with tow pods
 ## 31001 port exposed
-kubectl -n ${namespace} create -f -f deploy-pod1.yml -f deploy-pod2.yml -f service.yml
+kubectl -n ${namespace} create -f deploy-nfs1.yml -f service.yml
 kubectl -n ${namespace} get pods
 
 ## Testing URL with nodeport

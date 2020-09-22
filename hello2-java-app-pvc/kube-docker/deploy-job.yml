@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: update-shared-volume-data
+spec:
+  parallelism: 1    
+  completions: 1    
+  activeDeadlineSeconds: 1800 
+  backoffLimit: 6   
+  template:         
+    metadata:
+      name: update-shared-volume-data
+    spec:
+      containers:
+      - name: update-shared-volume-data
+        image: amitrepo/hello2bash:0.0.2
+        command: [
+        "sh",
+        "-ce",
+        "cp -frv /data2/* /data/"
+        ]
+        # command: ["ls", "-l", "/data"]
+        volumeMounts:
+        - mountPath: "/data"
+          name: pvc-cliam-1
+      volumes:
+      - name: pvc-cliam-1
+        persistentVolumeClaim:
+          claimName: pvc-cliam-1
+      restartPolicy: OnFailure
+
+  

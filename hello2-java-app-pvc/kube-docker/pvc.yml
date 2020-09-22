@@ -1,17 +1,11 @@
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: pv-cliam-nfs1
+  name: pvc-cliam-1
 spec:
+  storageClassName: "standard"  ## By default is standrad and it will automaticaly create a PV if it is not there.
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
-  storageClassName: nfs
-  volumeName: pv-nfs1
-  # selector:
-  #   matchLabels:
-  #     name: "pv-nfs1"
-    # matchExpressions:
-    #   - {key: environment, operator: In, values: [dev]}

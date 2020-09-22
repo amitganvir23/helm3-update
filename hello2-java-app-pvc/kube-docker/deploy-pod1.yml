@@ -1,0 +1,27 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: hello2
+spec:
+  selector:
+    matchLabels:
+      app: hello2 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello2
+    spec:
+      containers:
+      - name: hello2
+        image: amitrepo/hello2java:0.0.1
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: "/data"
+          name: pvc-cliam-1
+          # subPath: app1
+      volumes:
+      - name: pvc-cliam-1
+        persistentVolumeClaim:
+          claimName: pvc-cliam-1

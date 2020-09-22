@@ -2,11 +2,8 @@ namespace=glt-dev
 #defaultport is 8080
 
 #============= delete
-## Will delete one LoadBalancer Service and Deployment with tow pods
-kubectl -n ${namespace} delete -f deploy.yml -f service.yml
-
-## To delelte configmap
-kubectl -n ${namespace} delete configmap hindi-configmap  english-configmap
+## Will delete one LoadBalancer Service, Deployment and pvc.
+kubectl -n ${namespace} delete -f deploy-pod1.yml -f deploy-pod2.yml -f service.yml -f pvc.yml
 
 ## To Delete NameSpace
 kubectl delete namespaces ${namespace}
