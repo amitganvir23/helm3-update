@@ -50,6 +50,7 @@ kubectl -n ${namespace} create -f deploy-pod1.yml -f deploy-pod1.yml -f service.
 kubectl -n ${namespace} get pods
 ```
 
+
 Check the content of shared NFS volume in a pod
 ```
 kubectl -n ${namespace} exec -it $(kubectl -n ${namespace} get pods|grep hello2|awk '{print $1}') -- bash
