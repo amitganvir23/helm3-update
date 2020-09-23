@@ -9,8 +9,8 @@ spec:
   accessModes:
     # - ReadWriteOnce
     - ReadWriteMany
-  # persistentVolumeReclaimPolicy: Recycle
-  persistentVolumeReclaimPolicy: Retain
+  # persistentVolumeReclaimPolicy: Recycle 
+  persistentVolumeReclaimPolicy: Retain   ## data will present in shared dir even after pv/pvc deleted
   storageClassName: nfs
   # mountOptions:
   #   - hard

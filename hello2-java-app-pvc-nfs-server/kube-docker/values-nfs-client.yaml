@@ -1,0 +1,12 @@
+## Configure your nfs server and shared a directory and update this file
+replicaCount: 1
+
+nfs:
+  server: 192.168.99.100
+  path: /export/kubernetes/devtest
+  mountOptions:
+
+storageClass:
+  archiveOnDelete: false
+
+

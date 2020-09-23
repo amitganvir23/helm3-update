@@ -1,0 +1,30 @@
+replicaCount: 1
+
+image:
+  containerPort: 8080
+
+service:
+  port: 8080
+  targetPort: 8080
+  nodePort: 31006
+
+## Storage configuration for mm-workspace
+persistence:
+  ## enable persistance storage
+  enabled: true
+  ## Existing claim to use
+  # existingClaim: nil
+  ## Existing claim's subPath to use, e.g. "artifacts" (optional)
+  # subPath: ""
+  ##
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  # storageClass: nfs-client
+  storageClass: standard
+  accessMode: ReadWriteMany
+  size: 10Gi
+mm_workspace_mount_path: /mm-workspace
+

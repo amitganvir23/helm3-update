@@ -10,7 +10,7 @@ spec:
     # - ReadWriteOnce
     - ReadWriteMany
   # persistentVolumeReclaimPolicy: Recycle
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Retain     ## data will present even after pv/pvc deleted
   storageClassName: nfs
   # mountOptions:
   #   - hard

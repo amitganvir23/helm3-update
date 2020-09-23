@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-cliam-nfs-1
+spec:
+  storageClassName: "nfs-client"  ## By default is standrad and it will automaticaly create a PV if it is not there.
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

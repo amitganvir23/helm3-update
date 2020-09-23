@@ -19,9 +19,8 @@ spec:
         - containerPort: 8080
         volumeMounts:
         - mountPath: "/data"
-          name: pvc-nfs1
-          # subPath: app1
+          name: pvc-cliam-nfs-1
       volumes:
-      - name: pvc-nfs1
+      - name: pvc-cliam-nfs-1
         persistentVolumeClaim:
-          claimName: pv-cliam-nfs1
+          claimName: pvc-cliam-nfs-1
