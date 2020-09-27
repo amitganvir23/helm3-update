@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "inventory-service.fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "inventory-service.fullname" . }}
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "inventory-service.fullname" . }}
+    spec:
+      containers:
+      - name: {{ template "inventory-service.fullname" . }}
+        image: "{{ .Values.images.JavaHelloImage }}:{{ .Values.images.JavaHelloTag }}"
+        ports:
+        - containerPort: {{ .Values.image.containerPort }}
+        volumeMounts:
+      {{- if .Values.persistence.enabled }}
+        - name: mm-workspace
+          mountPath: {{ .Values.mm_workspace_mount_path }}
+      {{- end }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: mm-workspace
+          persistentVolumeClaim:
+              claimName: {{ .Values.persistence.existingClaim | default (include "inventory-service.fullname" .) }}
+        {{- end }}

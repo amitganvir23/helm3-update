@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "inventory-service.fullname" . }}-update-shared-volume-data
+spec:
+  parallelism: 1    
+  completions: 1    
+  activeDeadlineSeconds: 1800 
+  backoffLimit: 6   
+  template:         
+    metadata:
+      name: {{ template "inventory-service.fullname" . }}-update-shared-volume-data
+    spec:
+      containers:
+      - name: {{ template "inventory-service.fullname" . }}-update-shared-volume-data
+        image: "{{ .Values.images.bashHelloImage }}:{{ .Values.images.bashHelloTag }}"
+      {{- if .Values.persistence.enabled }}
+        command: [
+        "sh",
+        "-ce",
+        "cp -frv /data2/* {{ .Values.mm_workspace_mount_path }}/"
+        ]
+      {{- else }}
+        command: ["echo", "Skip to copy data on shared volume"]
+      {{- end }}
+        volumeMounts:
+      {{- if .Values.persistence.enabled }}
+        - name: mm-workspace
+          mountPath: {{ .Values.mm_workspace_mount_path }}
+      {{- end }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: mm-workspace
+          persistentVolumeClaim:
+              claimName: {{ .Values.persistence.existingClaim | default (include "inventory-service.fullname" .) }}
+        {{- end }}
+      restartPolicy: OnFailure
+  

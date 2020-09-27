@@ -1,0 +1,5 @@
+images:
+  JavaHelloImage: amitrepo/hello2java
+  JavaHelloTag: 0.0.1
+  bashHelloImage: amitrepo/hello2bash
+  bashHelloTag: 0.0.2

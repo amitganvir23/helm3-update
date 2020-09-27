@@ -1,6 +1,25 @@
 # helm3-update
 New Helm3 charts and new Kubernetes
 
+```
+cd helm
+helm.exe upgrade -n ${namespace --install model . -f image.yaml
+#OR
+helm.exe install-n ${namespace model . -f image.yaml
+```
+OR
+```
+cd helm-job
+helm.exe upgrade -n ${namespace --install model2 . -f image.yaml
+#OR
+helm.exe install -n ${namespace model2 . -f image.yaml
+```
+
+```
+helm -n ${namespace ls
+kubectl -n ${namespace} get pods
+```
+
 ## Dockerfile
 user docker file from hello2-java-app directory
 
