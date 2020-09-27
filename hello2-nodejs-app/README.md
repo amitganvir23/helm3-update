@@ -1,7 +1,12 @@
-# helm3-update
-New Helm3 charts and new Kubernetes
+## Kubernetes with minikube cluster
 
-## Kubernetes apply
+Create a docker image on minikube
+```
+cd hello-app-docker-image
+find . -type f | xargs.exe dos2unix
+repo=$(pwd)
+minikube.exe ssh "cd $repo; docker build . -t amitrepo/hello2nodejs:0.0.1"
+```
 
 To create NameSpace
 ```
@@ -21,28 +26,15 @@ or
 kubectl -n glt-dev create -f deploy-service.yml
 ```
 
-## Helm Charts apply
+CHeck pod and service
+```
+kubectl -n ${namespace} get pods
+kubectl -n ${namespace} get service
 
-Helm charts dry run
-```
-helm install -n glt-dev hello2 . -f image.yaml --dry-run --debug
 ```
 
-## Apply the changes
+Testing URL with nodeport
 ```
-helm install --namespace glt-dev hello2 . -f image.yaml
-```
-Validate the helm charts changes
-```
-helm -n glt-dev ls
-helm -n glt-dev status hello2
-helm -n glt-dev get all hello2
-helm -n glt-dev get manifest hello2
-helm -n glt-dev get hooks hello2
-helm -n glt-dev get values hello2
-```
-To delete helm charts
-```
-helm -n glt-dev ls
-helm -n glt-dev del hello2
+#curl http://192.168.99.100:31007
+
 ```
