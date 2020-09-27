@@ -1,5 +1,6 @@
 ## Kubernetes with minikube cluster
 
+## Dockerfile
 Create a docker image on minikube
 ```
 cd hello-app-docker-image

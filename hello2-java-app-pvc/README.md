@@ -21,7 +21,13 @@ kubectl -n ${namespace} get pods
 ```
 
 ## Dockerfile
-user docker file from hello2-java-app directory
+Create a docker image on minikube
+```
+cd CREATE-JAVA-APP-DOCKER-IMAGE
+repo=$(pwd)
+minikube.exe ssh "cd $repo; docker build . -t amitrepo/hello2java:0.0.1"
+```
+
 
 ## Kubernetes apply
 ```
