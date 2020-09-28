@@ -1,3 +1,0 @@
-name=hindi-file1
-a=10
-b=20

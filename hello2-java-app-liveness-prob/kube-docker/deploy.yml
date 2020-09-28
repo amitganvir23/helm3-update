@@ -1,0 +1,38 @@
+#apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-app
+spec:
+  selector:
+    matchLabels:
+      app: hello-app
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hello-app
+    spec:
+      containers:
+      - name: hello-app
+        image: amitrepo/hello2java:0.0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        # livenessProbe:
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
+        #   exec:
+        #     command:
+        #     - cat
+        #     - /myapp/app.jar
+        livenessProbe:
+          initialDelaySeconds: 50
+          periodSeconds: 10
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 6
+          httpGet:
+            path: /   ## specify the path if health check is created for your application
+            port: 8080
+      restartPolicy: Always
