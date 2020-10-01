@@ -11,6 +11,7 @@
 
 cd CREATE-JAVA-APP-DOCKER-IMAGE
 repo=$(pwd)
+dos2unix *
 minikube.exe ssh "cd $repo; docker build . -t amitrepo/hello2java:0.0.1"
 
 

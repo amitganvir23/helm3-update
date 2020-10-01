@@ -1,0 +1,103 @@
+# #apiVersion: extensions/v1beta1
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: hello-app
+# spec:
+#   selector:
+#     matchLabels:
+#       app: hello-app
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app: hello-app
+#     spec:
+#       containers:
+#       - name: hello-app
+#         image: amitrepo/hello2java:0.0.1
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 8080
+#         # readinessProbe:
+#         #   initialDelaySeconds: 5
+#         #   periodSeconds: 5
+#         #   exec:
+#         #     command:
+#         #     - cat
+#         #     - /myapp/app.jar
+#         readinessProbe:
+#           initialDelaySeconds: 50
+#           periodSeconds: 10
+#           timeoutSeconds: 10
+#           successThreshold: 1
+#           failureThreshold: 6
+#           httpGet:
+#             path: /   ## specify the path if health check is created for your application
+#             port: 8080
+#       restartPolicy: Always
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   annotations:
+#     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+#   name: hello-app-srv
+#   labels:
+#     app: hello-app-srv
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - port: 8080
+#     name: hello-app
+#     targetPort: 8080
+#     nodePort: 31009
+#   selector:
+#     app: hello-app
+
+apiVersion: apps/v1 #extensions/v1beta1 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: hello-app
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: hello-app
+      tier: backend
+  replicas: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: hello-app
+        tier: backend
+    spec:
+      containers:
+      - name: hello-app
+        image: amitrepo/hello2java:0.0.1
+        # resources:
+        #   limits:
+        #     cpu: 0.10m
+        #     memory: 30m
+        #   requests:
+        #     cpu: 0.10m
+        #     memory: 30m
+        ports:
+        - name: svc-port
+          containerPort: 8080
+        # livenessProbe:
+        #   failureThreshold: 10
+        #   httpGet:
+        #     path: /
+        #     port: 8080
+        #     scheme: HTTP
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 120
+        #   successThreshold: 1
+        #   timeoutSeconds: 60

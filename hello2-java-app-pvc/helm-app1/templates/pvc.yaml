@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "inventory-service.fullname" . }}
+  name: {{ template "inventory-service.name" . }}
   labels:
     app: {{ template "inventory-service.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"

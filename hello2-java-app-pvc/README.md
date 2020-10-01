@@ -1,18 +1,22 @@
 # helm3-update
-New Helm3 charts and new Kubernetes
-
+New Helm3 charts and new Kubernetes. Shared same PVC from app1 to app2. Bothe app will going to use same PVC.
 ```
-cd helm
-helm.exe upgrade -n ${namespace --install model . -f image.yaml
+cd helm-app1
+helm.exe upgrade -n ${namespace} --install app1 . -f image.yaml
 #OR
-helm.exe install-n ${namespace model . -f image.yaml
+helm.exe install -n ${namespace} app1 . -f image.yaml
+
+cd helm-app2
+helm.exe upgrade -n ${namespace} --install app2 . -f image.yaml
+#OR
+helm.exe install -n ${namespace} app2 . -f image.yaml
 ```
 OR
 ```
 cd helm-job
-helm.exe upgrade -n ${namespace --install model2 . -f image.yaml
+helm.exe upgrade -n ${namespace} --install app3 . -f image.yaml
 #OR
-helm.exe install -n ${namespace model2 . -f image.yaml
+helm.exe install -n ${namespace} app3 . -f image.yaml
 ```
 
 ```

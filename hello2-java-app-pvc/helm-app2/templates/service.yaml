@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: {{ template "worflows-service.fullname" . }}-srv
+  labels:
+    app: hello-srv
+spec:
+  type: LoadBalancer
+  ports:
+  - port: {{ .Values.image.containerPort }}
+    name: {{ template "worflows-service.fullname" . }}
+    targetPort: {{ .Values.image.containerPort }}
+    nodePort: {{ .Values.service.nodePort }}
+  selector:
+    app: {{ template "worflows-service.fullname" . }}

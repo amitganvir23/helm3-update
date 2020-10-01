@@ -6,12 +6,13 @@ image:
 service:
   port: 8080
   targetPort: 8080
-  nodePort: 31006
+  nodePort: 31007
 
 ## Storage configuration for mm-workspace
 persistence:
   ## enable persistance storage
   enabled: true
+  existingClaim: inventory-service
   ## Existing claim to use
   # existingClaim: nil
   ## Existing claim's subPath to use, e.g. "artifacts" (optional)
@@ -23,8 +24,8 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   # storageClass: nfs-client
-  storageClass: standard
-  accessMode: ReadWriteMany
-  size: 10Gi
+  # storageClass: standard
+  # accessMode: ReadWriteMany
+  # size: 10Gi
 mm_workspace_mount_path: /mm-workspace
 
