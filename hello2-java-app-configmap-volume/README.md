@@ -2,11 +2,23 @@
 New Helm3 charts and new Kubernetes
 
 ## Dockerfile
-Create a docker image on minikube
+Follow below steps to create docker image on minikube machine
 ```
 cd CREATE-JAVA-APP-DOCKER-IMAGE
+dos2unix *
+```
+
+for root user
+```
 repo=$(pwd)
-minikube.exe ssh "cd $repo; docker build . -t amitrepo/hello2java:0.0.1"
+minikube ssh "cd $repo; docker build . -t amitrepo/hello2java:0.0.1"
+```
+
+for non-root user
+```
+repo=$(pwd)
+repo=$(echo $repo|sed 's/home/hosthome/')
+minikube ssh "cd $repo; docker build . -t amitrepo/hello2java:0.0.1"
 ```
 
 
@@ -14,7 +26,7 @@ minikube.exe ssh "cd $repo; docker build . -t amitrepo/hello2java:0.0.1"
 ## Kubernetes apply
 
 ```
-namespace=${namespace}
+namespace="glt-dev"
 ```
 
 defaultport is 8080

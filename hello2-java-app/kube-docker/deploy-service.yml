@@ -33,6 +33,6 @@ spec:
     spec:
       containers:
       - name: hello2
-        image: amitrepo/hello2java:0.0.1
+        image: amitrepo/hello2java:0.0.2
         ports:
         - containerPort: 8080

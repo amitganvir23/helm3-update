@@ -5,13 +5,13 @@ metadata:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
   name: {{ template "name" . }}-srv
   labels:
-    app: hello-srv
+    app: {{ template "name" . }}-srv
 spec:
   type: LoadBalancer
   ports:
-  - port: 8080
+  - port: {{ .Values.service.port }}
     name: {{ template "name" . }}
-    targetPort: 8080
+    targetPort: {{ .Values.service.targetPort }} 
     nodePort: {{ .Values.service.nodePort }}
   selector:
     app: {{ template "name" . }}

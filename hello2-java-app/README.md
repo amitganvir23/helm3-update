@@ -2,11 +2,23 @@
 New Helm3 charts and new Kubernetes
 
 
-Create a docker image on minikube
+Follow below steps to create docker image on minikube machine ####
 ```
 cd CREATE-JAVA-APP-DOCKER-IMAGE
+dos2unix *
+```
+
+for root user
+```
 repo=$(pwd)
-minikube.exe ssh "cd $repo; docker build . -t amitrepo/hello2java:0.0.1"
+minikube ssh "cd $repo; docker build . -t amitrepo/hello2java:0.0.1"
+```
+
+for non-root user
+```
+repo=$(pwd)
+repo=$(echo $repo|sed 's/home/hosthome/')
+minikube ssh "cd $repo; docker build . -t amitrepo/hello2java:0.0.1"
 ```
 
 ## Kubernetes apply
@@ -19,38 +31,43 @@ kubectl get namespaces
 
 To Apply the changes
 ```
-kubectl -n glt-dev create -f service.yml
-kubectl -n glt-dev create -f deploy.yml
+kubectl -n ${namespace} create -f service.yml
+kubectl -n ${namespace} create -f deploy.yml
 ```
 
 or
 
 ```
-kubectl -n glt-dev create -f deploy-service.yml
+kubectl -n ${namespace} create -f deploy-service.yml
 ```
 
 ## Helm Charts apply
-
-Helm charts dry run
 ```
-helm install -n glt-dev hello2 . -f image.yaml --dry-run --debug
+namespace="glt-dev"
+```
+Helm charts dry run
+helm install -n <NameSpace> <Chart Name> . -f image.yaml --dry-run --debug
+```
+helm install -n ${namespace} hello2 . -f image.yaml --dry-run --debug
 ```
 
 ## Apply the changes
 ```
-helm install --namespace glt-dev hello2 . -f image.yaml
+helm install --namespace ${namespace} hello2 . -f image.yaml
 ```
 Validate the helm charts changes
+helm install -n <NameSpace> <CMD> <Chart Name> 
 ```
-helm -n glt-dev ls
-helm -n glt-dev status hello2
-helm -n glt-dev get all hello2
-helm -n glt-dev get manifest hello2
-helm -n glt-dev get hooks hello2
-helm -n glt-dev get values hello2
+helm -n ${namespace} ls
+helm -n ${namespace} status hello2
+helm -n ${namespace} get all hello2
+helm -n ${namespace} get manifest hello2
+helm -n ${namespace} get hooks hello2
+helm -n ${namespace} get values hello2
 ```
 To delete helm charts
 ```
-helm -n glt-dev ls
-helm -n glt-dev del hello2
+helm -n ${namespace} ls
+helm -n ${namespace} del hello2
 ```
+Note:- 'default' is the Default namespace for Helm/kubectl.

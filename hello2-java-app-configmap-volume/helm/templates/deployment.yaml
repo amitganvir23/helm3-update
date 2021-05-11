@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: hello2
+      app: {{ template "name" . }} 
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:

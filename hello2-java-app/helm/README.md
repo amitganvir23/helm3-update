@@ -25,14 +25,20 @@ Server: &version.Version{SemVer:"v2.9.1", GitCommit:"20adb27c7c5868466912eebdf66
 ### To cehck Helm is putting values properly in kubernetes resources.
 $ helm install . --name <Chart Name> -f image.yml --debug --dry-run
 
+helm version3:
+$ helm install . <Chart Name> -f image.yaml --debug --dry-run
+
 ## Helm helm chart deployment
 $ helm package <Chart Name> --debug
 $ helm install <Chart Name>-<Version>tgz --name helloworld
     ##OR
 $ helm install . --name <Chart Name> -f image.yaml
 
+helm version3:
+$ helm install . <Chart Name> -f image.yaml
+
 ## example for helm chart deployment
-$ helm upgrade --install hello2 . -f image.yaml
+$ helm upgrade --install . <Chart Name> -f image.yaml 
 
 ## To list the helm charts
 $ helm ls
