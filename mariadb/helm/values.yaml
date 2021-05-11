@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  containerPort: 3306
+
+service:
+  port: 3306 
+  targetPort: 3306
+  nodePort: 30006
+
+db:
+  RootPassword: root123
+  NameOfDb: testdb

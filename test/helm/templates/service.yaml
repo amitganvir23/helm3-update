@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: {{ template "name" . }}-srv
+  labels:
+    app: {{ template "name" . }}-srv
+spec:
+  type: LoadBalancer
+  ports:
+  - port: {{ .Values.service.port }}
+    name: {{ template "name" . }}
+    targetPort: {{ .Values.service.targetPort }} 
+    nodePort: {{ .Values.service.nodePort }}
+  selector:
+    app: {{ template "name" . }}

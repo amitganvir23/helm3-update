@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      host: %mongodb.host%
+      port: %mongodb.port%
+      authentication-database: %mongodb.database%
+      database: %mongodb.database%
+      username: %mongodb.username%
+      password: %mongodb.password%

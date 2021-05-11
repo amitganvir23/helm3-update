@@ -1,0 +1,20 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ template "name" . }} 
+  labels:
+     app: {{ template "name" . }}
+data:
+  application.yml: |-
+    server:
+      port: {{ .Values.image.containerPort }} 
+    application:
+      name: {{ template "name" . }}
+    logging:
+      level:
+        org.springframework.security: INFO
+        org.springframework.cloud: INFO
+        org.springframework.web: WARN
+        org.springframework.cloud.consul: INFO
+
+

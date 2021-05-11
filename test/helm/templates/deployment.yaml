@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "name" . }} 
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+    spec:
+      containers:
+      - name: {{ template "name" . }}
+        image: "{{ .Values.images.JavaHelloImage }}:{{ .Values.images.JavaHelloTag }}"
+        ports:
+        - containerPort: {{ .Values.image.containerPort }}
+        volumeMounts:
+        - name: config
+          mountPath: /config
+          readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: {{ template "name" . }} 
+            items:
+              - key: application.yml
+                path: application.yml
+

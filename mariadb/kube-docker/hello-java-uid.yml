@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+  #spec:
+  #securityContext:
+          #   fsGroup: 0
+  # runAsUser: 3210
+  # runAsGroup: 0
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: amitrepo/hello2java-uid:0.0.2
+        securityContext:
+          runAsUser: 3210
+          #runAsGroup: 0
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: 3306

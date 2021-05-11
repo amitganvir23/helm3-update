@@ -1,0 +1,28 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: my-psp
+spec:
+  privileged: false
+  #Required to prevent escalations to root.
+  allowPrivilegeEscalation: false
+  allowedCapabilities:
+  - '*'
+  volumes:
+  - 'nfs'
+  hostNetwork: true
+  hostPorts:
+  - min: 8000
+    max: 8000
+  hostIPC: true
+  hostPID: true
+  runAsUser:
+    #Require the container to run without root.
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'RunAsAny'
+  fsGroup:
+    rule: 'RunAsAny'
+
